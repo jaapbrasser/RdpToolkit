@@ -1,6 +1,7 @@
 function New-RdpFile {
     param(
         # Path of the RDP file to be created
+        [parameter(Mandatory)]
         [string] $Path,
         # Determines whether the remote session window appears full screen when you connect to the remote computer by using Remote Desktop Connection. - 1: The remote session will appear in a window - 2: The remote session will appear full screen
         [validaterange(1,2)]
@@ -18,7 +19,7 @@ function New-RdpFile {
         [validateset(15,16,24,32)]
         [int] $session_bpp = 32,
         # Specifies the position and dimensions of the session window on the client computer.
-        [string] $winposstr,
+        [string] $winposstr = '0,1,254,168,1054,768',
         # Determines whether bulk compression is enabled when it is transmitted by RDP to the local computer. - 0: Disable RDP bulk compression - 1: Enable RDP bulk compression
         [validaterange(0,1)]
         [int] $compression = 1,
@@ -71,6 +72,7 @@ function New-RdpFile {
         [validaterange(0,1)]
         [int] $bitmapcachepersistenable,
         # This setting specifies the name or IP address of the remote computer that you want to connect to. A valid computer name, IPv4 address, or IPv6 address.
+        [parameter(Mandatory)]
         [string] $full_address,
         # Determines whether the local or remote machine plays audio. - 0: Play sounds on local computer (Play on this computer) - 1: Play sounds on remote computer (Play on remote computer) - 2: Do not play sounds (Do not play)
         [validaterange(0,2)]
@@ -129,6 +131,18 @@ function New-RdpFile {
         [int] $use_redirection_server_name = 0,
         # Determines which local disk drives on the client computer will be redirected and available in the remote session. No value specified: don't redirect any drives * : Redirect all disk drives, including drives that are connected later DynamicDrives: redirect any drives that are connected later The drive and labels for one or more drives: redirect the specified drive(s)
         [string] $drivestoredirect
-        # 
     )
+    
+    #$PSBoundParameters
+    
+    #Get-Variable -Scope 0
+    $MyInvocation.MyCommand.Parameters.Keys | ForEach-Object -Begin {
+        $ExcludedParam = 'Path','PipelineVariable','OutBuffer','OutVariable','InformationVariable','WarningVariable','ErrorVariable','InformationAction','WarningAction','ErrorAction','Debug','Verbose'
+    } -Process {
+        if ($ExcludedParam -notcontains $_) {
+            '{0}:{1}:{2}' -f ($_ -replace '_',' '),
+                (Get-Variable -Name $_).value.GetType().Name.Substring(0,1).ToLower(),
+                (Get-Variable -Name $_).value
+        }
+    } | Set-Content -LiteralPath $Path -Encoding bigendianunicode
 }
