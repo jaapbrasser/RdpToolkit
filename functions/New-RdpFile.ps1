@@ -1,7 +1,7 @@
 function New-RdpFile {
     param(
         # Path of the RDP file to be created
-        [string $Path,
+        [string] $Path,
         # Determines whether the remote session window appears full screen when you connect to the remote computer by using Remote Desktop Connection. - 1: The remote session will appear in a window - 2: The remote session will appear full screen
         [validaterange(1,2)]
         [int] $screen_mode_id = 2,
