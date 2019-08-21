@@ -106,7 +106,7 @@ function New-RdpFile {
         [int] $negotiate_security_layer = 1,
         # Determines whether a RemoteApp connection is launched as a RemoteApp session. - 0: Don't launch a RemoteApp session - 1: Launch a RemoteApp session
         [validaterange(0,1)]
-        [int] $remoteapplicationmode = 1,
+        [int] $remoteapplicationmode = 0,
         # Determines whether a program starts automatically when you connect with RDP. To specify an alternate shell, enter a valid path to an executable file for the value, such as "C:\ProgramFiles\Office\word.exe". This setting also determines which path or alias of the Remote Application to be started at connection time if RemoteApplicationMode is enabled.
         [string] $alternate_shell,
         # The working directory on the remote computer to be used if an alternate shell is specified.
@@ -144,5 +144,5 @@ function New-RdpFile {
                 (Get-Variable -Name $_).value.GetType().Name.Substring(0,1).ToLower(),
                 (Get-Variable -Name $_).value
         }
-    } | Set-Content -LiteralPath $Path -Encoding bigendianunicode
+    } | Set-Content -LiteralPath $Path -Encoding unicode
 }
