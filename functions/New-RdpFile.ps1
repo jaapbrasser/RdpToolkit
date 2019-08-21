@@ -1,30 +1,36 @@
 function New-RdpFile {
     param(
+        # Path of the RDP file to be created
         $Path,
-        # 
-        $screen_mode_id,
-        # 
-        $use_multimon,
+        # Determines whether the remote session window appears full screen when you connect to the remote computer by using Remote Desktop Connection. - 1: The remote session will appear in a window - 2: The remote session will appear full screen
+        [validaterange(1,2)]
+        [int] $screen_mode_id = 2,
+        # Configures multiple monitor support when you connect to the remote computer by using Remote Desktop Connection. - 0: Don't enable multiple monitor support - 1: Enable multiple monitor support
+        [validaterange(0,1)]
+        [int] $use_multimon = 0,
         # Determines the resolution width (in pixels) on the remote computer when you connect by using Remote Desktop Connection. This setting corresponds to the selection in the Display configuration slider on the Display tab under Options in RDC.
         [validaterange(200,4096)]
         [int] $desktopwidth = 1280,
         # Determines the resolution height (in pixels) on the remote computer when you connect by using Remote Desktop Connection. This setting corresponds to the selection in the Display configuration slider on the Display tab under Options in RDC.
         [validaterange(200,2048)]
         [int] $desktopheight = 720,
-        # 
-        $session_bpp,
-        # 
-        $winposstr,
+        # Color depth in bits
+        [validateset(15,16,24,32)]
+        [int] $session_bpp = 32,
+        # Specifies the position and dimensions of the session window on the client computer.
+        [string] $winposstr,
         # Determines whether bulk compression is enabled when it is transmitted by RDP to the local computer. - 0: Disable RDP bulk compression - 1: Enable RDP bulk compression
         [validaterange(0,1)]
         [int] $compression = 1,
-        # 
-        $keyboardhook,
+        # Determines how Windows key combinations are applied when you are connected to a remote computer. 0 - Windows key combinations are applied on the local computer. 1 - Windows key combinations are applied on the remote computer. 2 - Windows key combinations are applied in full-screen mode only.
+        [validaterange(0,2)]
+        [int] $keyboardhook = 2,
         # Indicates whether audio input/output redirection is enabled. - 0: Disable audio capture from the local device - 1: Enable audio capture from the local device and redirection to an audio application in the remote session
         [validaterange(0,1)]
         [int] $audiocapturemode = 0,
-        # 
-        $videoplaybackmode,
+        # Determines if Remote Desktop Connection will use RDP-efficient multimedia streaming for video playback. - 0: Don't use RDP efficient multimedia streaming for video playback - 1: Use RDP-efficient multimedia streaming for video playback when possible
+        [validaterange(0,1)]
+        [int] $videoplaybackmode = 1,
         # 
         $connection_type,
         # Determines whether or not to use automatic network bandwidth detection. Requires the option bandwidthautodetect to be set and correlates with connection type 7. - 0: Don't use automatic network bandwidth detection - 1: Use automatic network bandwidth detection
@@ -63,29 +69,34 @@ function New-RdpFile {
         [int] $redirectprinters = 1,
         # 
         $redirectcomports,
-        # 
-        $redirectsmartcards,
+        # Determines whether smart card devices on the client computer will be redirected and available in the remote session when you connect to a remote computer. - 0: The smart card device on the local computer is not available in the remote session - 1: The smart card device on the local computer is available in the remote session
+        [validaterange(0,1)]
+        [int] $redirectsmartcards = 1,
         # Determines whether the clipboard on the local computer will be redirected and available in the remote session. - 0: Clipboard on local computer isn't available in remote session - 1: Clipboard on local computer is available in remote session
         [validaterange(0,1)]
         [int] $redirectclipboard = 1,
-        # 
-        $redirectposdevices,
+        # Determines whether Microsoft Point of Service (POS) for .NET devices connected to the client computer will be redirected and available in the remote session. 0 - The POS devices from the local computer are not available in the remote session. 1 - The POS devices from the local computer are available in the remote session.
+        [validaterange(0,1)]
+        [int] $redirectposdevices = 0,
         # Determines whether the client computer will automatically try to reconnect to the remote computer if the connection is dropped, such as when there's a network connectivity interruption. - 0: Client computer does not automatically try to reconnect - 1: Client computer automatically tries to reconnect
         [validaterange(0,1)]
         [int] $autoreconnection_enabled = 1,
         # Defines the server authentication level settings. - 0: If server authentication fails, connect to the computer without warning (Connect and don’t warn me) - 1: If server authentication fails, don't establish a connection (Don't connect) - 2: If server authentication fails, show a warning and allow me to connect or refuse the connection (Warn me) - 3: No authentication requirement specified.
-        [validaterange(0,2)]
+        [validaterange(0,3)]
         [int] $authentication_level = 3,
-        # 
-        $prompt_for_credentials,
-        # 
-        $negotiate_security_layer,
-        # 
-        $remoteapplicationmode,
+        # Determines whether Remote Desktop Connection will prompt for credentials when connecting to a remote computer for which the credentials have been previously saved. 0 - Remote Desktop will use the saved credentials and will not prompt for credentials. 1 - Remote Desktop will prompt for credentials.
+        [validaterange(0,1)]
+        [int] $prompt_for_credentials = 0,
+        # Determines whether the level of security is negotiated or not. 0 - Security layer negotiation is not enabled and the session is started by using Secure Sockets Layer (SSL). 1 - Security layer negotiation is enabled and the session is started by using x.224 encryption.
+        [validaterange(0,1)]
+        [int] $negotiate_security_layer = 1,
+        # Determines whether a RemoteApp connection is launched as a RemoteApp session. - 0: Don't launch a RemoteApp session - 1: Launch a RemoteApp session
+        [validaterange(0,1)]
+        [int] $remoteapplicationmode = 1,
         # Determines whether a program starts automatically when you connect with RDP. To specify an alternate shell, enter a valid path to an executable file for the value, such as "C:\ProgramFiles\Office\word.exe". This setting also determines which path or alias of the Remote Application to be started at connection time if RemoteApplicationMode is enabled.
         [string] $alternate_shell,
-        # 
-        $shell_working_directory,
+        # The working directory on the remote computer to be used if an alternate shell is specified.
+        [string] $shell_working_directory,
         # Specifies the RD Gateway host name.
         [string] $gatewayhostname,
         # Specifies when to use the RD Gateway server - 0: Don't use an RD Gateway server - 1: Always use an RD Gateway server - 2: Use an RD Gateway server if a direct connection cannot be made to the RD Session Host - 3: Use the default RD Gateway server settings - 4: Don't use an RD Gateway, bypass server for local addresses. Setting this property value to 0 or 4 are is effectively equivalent, but setting this property to 4 enables the option to bypass local addresses.
