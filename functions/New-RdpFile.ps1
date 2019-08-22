@@ -1,4 +1,30 @@
 function New-RdpFile {
+<#   
+.SYNOPSIS
+Generates a new .RDP file 
+    
+.DESCRIPTION
+
+
+.NOTES   
+Name:        New-RubrikFile
+Module:      RdpToolkit
+Author:      Jaap Brasser
+DateCreated: 2019-08-19
+DateUpdated: 2019-08-21
+Version:     1.0.0
+Blog:        http://www.jaapbrasser.com
+
+.LINK
+https://www.github.com/jaapbrasser/rdptoolkit
+
+.EXAMPLE
+New-RdpFile -Path $home/server01.rdp -Full_Address jbrasser-win.contoso.nl
+
+Description
+-----------
+Generates a new .Rdp file in the '$home/server01.rdp' path, for the jbrasser-win machine
+#>
     param(
         # Path of the RDP file to be created
         [parameter(Mandatory)]
