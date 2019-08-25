@@ -159,9 +159,7 @@ Generates a new .Rdp file in the '$home/server01.rdp' path, for the jbrasser-win
         [string] $drivestoredirect
     )
     
-    #$PSBoundParameters
     
-    #Get-Variable -Scope 0
     $MyInvocation.MyCommand.Parameters.Keys | ForEach-Object -Begin {
         $ExcludedParam = 'Path','PipelineVariable','OutBuffer','OutVariable','InformationVariable','WarningVariable','ErrorVariable','InformationAction','WarningAction','ErrorAction','Debug','Verbose'
     } -Process {
