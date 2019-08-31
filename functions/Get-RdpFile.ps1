@@ -36,7 +36,11 @@ Get structured objects back from the .rdp files
     
     process {
         Get-Content -LiteralPath $Path | ForEach-Object -Begin {
-            $HashObject = [ordered]@{}
+            if (2 -lt $PSVersionTable.PSVersion.Major) {
+                $HashObject = [ordered]@{}
+            } else {
+                $HashObject = @{}
+            }
         } -Process {
             $CurrentLine = $_.split(':')
             if ('i' -eq $CurrentLine[1]) {
