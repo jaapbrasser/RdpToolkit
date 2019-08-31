@@ -5,6 +5,7 @@ function Get-RdpFile {
     param(
         # Path of the RDP file to be created
         [parameter(Mandatory=$true)]
+        [alias('FullName')]
         [string] $Path
     )
     
