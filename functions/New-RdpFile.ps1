@@ -13,7 +13,7 @@ Author:      Jaap Brasser
 DateCreated: 2019-08-19
 DateUpdated: 2019-08-21
 Version:     1.0.0
-Blog:        http://www.jaapbrasser.com
+Blog:        https://www.jaapbrasser.com
 
 .LINK
 https://www.github.com/jaapbrasser/rdptoolkit
