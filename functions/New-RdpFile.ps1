@@ -336,17 +336,19 @@ Generates a new .Rdp file in the '$home/server01.rdp' path, for the jbrasser-win
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true
         )]
-        [string] $drivestoredirect
+        [string] $drivestoredirect,
+        [int] $rdgiskdcproxy
     )
     
-    
-    $MyInvocation.MyCommand.Parameters.Keys | ForEach-Object -Begin {
-        $ExcludedParam = 'Path','PipelineVariable','OutBuffer','OutVariable','InformationVariable','WarningVariable','ErrorVariable','InformationAction','WarningAction','ErrorAction','Debug','Verbose'
-    } -Process {
-        if ($ExcludedParam -notcontains $_) {
-            '{0}:{1}:{2}' -f ($_ -replace '_',' '),
-                (Get-Variable -Name $_).value.GetType().Name.Substring(0,1).ToLower(),
-                (Get-Variable -Name $_).value
-        }
-    } | Set-Content -LiteralPath $Path -Encoding unicode
+    process {
+        $MyInvocation.MyCommand.Parameters.Keys | ForEach-Object -Begin {
+            $ExcludedParam = 'Path','PipelineVariable','OutBuffer','OutVariable','InformationVariable','WarningVariable','ErrorVariable','InformationAction','WarningAction','ErrorAction','Debug','Verbose'
+        } -Process {
+            if ($ExcludedParam -notcontains $_) {
+                '{0}:{1}:{2}' -f ($_ -replace '_',' '),
+                    (Get-Variable -Name $_).value.GetType().Name.Substring(0,1).ToLower(),
+                    (Get-Variable -Name $_).value
+            }
+        } | Set-Content -LiteralPath $Path -Encoding unicode
+    }
 }
