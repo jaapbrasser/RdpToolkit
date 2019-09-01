@@ -7,7 +7,7 @@ Get the .RDP file contents
 This function is used to programmatically gather information from .rdp files, which can be used to create or update existing .Rdp files
 
 .NOTES   
-Name:        Get-RubrikFile
+Name:        Get-RdpFile
 Module:      RdpToolkit
 Author:      Jaap Brasser
 DateCreated: 2019-08-30

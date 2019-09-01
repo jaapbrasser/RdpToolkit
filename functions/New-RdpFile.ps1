@@ -7,7 +7,7 @@ Generates a new .RDP file
 This function is used to programmatically generate .rdp files, which can be used to initiate connections used the RDP-protocol
 
 .NOTES   
-Name:        New-RubrikFile
+Name:        New-RdpFile
 Module:      RdpToolkit
 Author:      Jaap Brasser
 DateCreated: 2019-08-19
