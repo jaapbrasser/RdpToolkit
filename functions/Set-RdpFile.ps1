@@ -352,6 +352,23 @@ Generates a new .Rdp file in the '$home/server01.rdp' path, for the jbrasser-win
     )
     
     process {
+        Get-Content -LiteralPath $Path | ForEach-Object -Begin {
+            if (2 -lt $PSVersionTable.PSVersion.Major) {
+                $HashObject = [ordered]@{}
+            } else {
+                $HashObject = @{}
+            }
+        } -Process {
+            $CurrentLine = $_.split(':')
+            if ('i' -eq $CurrentLine[1]) {
+                $HashObject.Add($CurrentLine[0].Replace(' ','_'), [int]$CurrentLine[2])
+            } elseif ('s' -eq $CurrentLine[1]) {
+                $HashObject.Add($CurrentLine[0].Replace(' ','_'), [string]$CurrentLine[2])
+            }
+        } -End {
+            [pscustomobject]$HashObject
+        }
+        
         $MyInvocation.MyCommand.Parameters.Keys | ForEach-Object -Begin {
             $ExcludedParam = 'Path','PipelineVariable','OutBuffer','OutVariable','InformationVariable','WarningVariable','ErrorVariable','InformationAction','WarningAction','ErrorAction','Debug','Verbose'
         } -Process {
