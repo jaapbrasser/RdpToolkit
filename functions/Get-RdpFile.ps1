@@ -44,9 +44,9 @@ Get structured objects back from the .rdp files
         } -Process {
             $CurrentLine = $_.split(':')
             if ('i' -eq $CurrentLine[1]) {
-                $HashObject.Add($CurrentLine[0], [int]$CurrentLine[2])
+                $HashObject.Add($CurrentLine[0].Replace(' ','_'), [int]$CurrentLine[2])
             } elseif ('s' -eq $CurrentLine[1]) {
-                $HashObject.Add($CurrentLine[0], [string]$CurrentLine[2])
+                $HashObject.Add($CurrentLine[0].Replace(' ','_'), [string]$CurrentLine[2])
             }
         } -End {
             [pscustomobject]$HashObject
