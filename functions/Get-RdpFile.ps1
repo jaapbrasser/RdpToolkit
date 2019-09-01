@@ -11,7 +11,7 @@ Name:        Get-RubrikFile
 Module:      RdpToolkit
 Author:      Jaap Brasser
 DateCreated: 2019-08-30
-DateUpdated: 2019-08-30
+DateUpdated: 2019-09-01
 Version:     1.0.0
 Blog:        https://www.jaapbrasser.com
 
