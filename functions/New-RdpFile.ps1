@@ -337,7 +337,17 @@ Generates a new .Rdp file in the '$home/server01.rdp' path, for the jbrasser-win
             ValueFromPipelineByPropertyName=$true
         )]
         [string] $drivestoredirect,
-        [int] $rdgiskdcproxy
+        # Deterines if an proxy server is used, default configuration is 0, off
+        [parameter(
+            ValueFromPipeline=$true,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [int] $rdgiskdcproxy = 0,
+        [parameter(
+            ValueFromPipeline=$true,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [string] $kdcproxyname
     )
     
     process {
