@@ -343,6 +343,7 @@ Generates a new .Rdp file in the '$home/server01.rdp' path, for the jbrasser-win
             ValueFromPipelineByPropertyName=$true
         )]
         [int] $rdgiskdcproxy = 0,
+        # The FQDN of the kdc proxy
         [parameter(
             ValueFromPipeline=$true,
             ValueFromPipelineByPropertyName=$true
