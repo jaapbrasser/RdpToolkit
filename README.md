@@ -13,6 +13,18 @@ Generate a .rdp by running the following command:
 New-RdpFile -Path $home/server01.rdp -Full_Address server01.jaapbrasser.com
 ```
 
+Copy an existing configuration, updating the address of the server:
+
+```
+Get-RdpFile -Path $home/server01.rdp | New-RdpFile -Path $home/server02.rdp -full_address server02.jaapbrasser.com
+```
+
+Update an existing .rdp file:
+
+```
+Set-RdpFile -Path $home/server01.rdp -Full_Address server01.jaapbrasser.com
+```
+
 ## Reference
 
 [PowerShell Team Blog - RDP File Generation/Use of HERE-Strings](https://devblogs.microsoft.com/powershell/rdp-file-generationuse-of-here-strings/)
