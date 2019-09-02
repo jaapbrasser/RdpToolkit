@@ -19,11 +19,11 @@ Blog:        https://www.jaapbrasser.com
 https://www.github.com/jaapbrasser/rdptoolkit
 
 .EXAMPLE
-Set-RdpFile -Path $home/server01.rdp -Full_Address jbrasser-win.contoso.nl
+Set-RdpFile -Path $home/server01.rdp -Full_Address server01.jaapbrasser.com
 
 Description
 -----------
-Updates an existing .Rdp file in the '$home/server01.rdp' path, for the jbrasser-win machine
+Updates an existing .Rdp file in the '$home/server01.rdp' path, for the server01 machine
 #>
     param(
         # Path of the RDP file to be created
