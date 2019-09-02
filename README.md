@@ -10,7 +10,7 @@ I have the desire to use PowerShell to manipulate the setting in an .rdp file, b
 Generate a .rdp by running the following command:
 
 ```
-New-RdpFile -Path $home/server01.rdp -Full_Address jbrasser-win.contoso.nl
+New-RdpFile -Path $home/server01.rdp -Full_Address server01.jaapbrasser.com
 ```
 
 ## Reference
