@@ -352,21 +352,16 @@ Generates a new .Rdp file in the '$home/server01.rdp' path, for the jbrasser-win
     )
     
     process {
-        Get-Content -LiteralPath $Path | ForEach-Object -Begin {
-            if (2 -lt $PSVersionTable.PSVersion.Major) {
-                $HashObject = [ordered]@{}
-            } else {
-                $HashObject = @{}
+        Get-Content -LiteralPath $Path | ForEach-Object -Process {
+            $CurrentLine = $_.split(':')            
+            if (-not (Get-Variable -Name $CurrentLine[0].Replace(' ','_').Value)) {
+                Write-Verbose -Message ('Setting variable "{0}" with value "{1}"' -f $CurrentLine[0].Replace(' ','_'), [int]$CurrentLine[2])
+                if ('i' -eq $CurrentLine[1]) {
+                    Set-Variable -Name $CurrentLine[0].Replace(' ','_') -Value [int]$CurrentLine[2]
+                } elseif ('s' -eq $CurrentLine[1]) {
+                    Set-Variable -Name $CurrentLine[0].Replace(' ','_') -Value [string]$CurrentLine[2]
+                }
             }
-        } -Process {
-            $CurrentLine = $_.split(':')
-            if ('i' -eq $CurrentLine[1]) {
-                $HashObject.Add($CurrentLine[0].Replace(' ','_'), [int]$CurrentLine[2])
-            } elseif ('s' -eq $CurrentLine[1]) {
-                $HashObject.Add($CurrentLine[0].Replace(' ','_'), [string]$CurrentLine[2])
-            }
-        } -End {
-            [pscustomobject]$HashObject
         }
         
         $MyInvocation.MyCommand.Parameters.Keys | ForEach-Object -Begin {
