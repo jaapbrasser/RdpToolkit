@@ -24,6 +24,13 @@ Get-RdpFile -Path $home/server01.rdp
 Description
 -----------
 Get structured objects back from the .rdp files
+
+.EXAMPLE
+Get-RdpFile -Path $home/server01.rdp | New-RdpFile -Path $home/server02.rdp -Full_address server02.jaapbrasser.com
+
+Description
+-----------
+Create a copy of an existing .rdp file, copying all settings only changing the file name and the full_address value
 #>
 
     [cmdletbinding()]
