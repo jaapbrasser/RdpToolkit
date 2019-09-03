@@ -19,7 +19,7 @@ Copy an existing configuration, updating the address of the server:
 Get-RdpFile -Path $home/server01.rdp | New-RdpFile -Path $home/server02.rdp -full_address server02.jaapbrasser.com
 ```
 
-Update an existing .rdp file:
+Update an address in an existing .rdp file:
 
 ```
 Set-RdpFile -Path $home/server01.rdp -Full_Address server01.jaapbrasser.com
