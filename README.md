@@ -1,7 +1,7 @@
 # RdpToolkit
 Module for generating and changing .rdp files using PowerShell
 
-## Origin of Module
+## Origin of this Module
 
 I have the desire to use PowerShell to manipulate the setting in an .rdp file, but there are no modules available. I found one old PowerShell 1 reference of using here-strings to accomplish this.
 
