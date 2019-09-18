@@ -13,7 +13,7 @@ Generate a .rdp by running the following command:
 New-RdpFile -Path $home/server01.rdp -Full_Address server01.jaapbrasser.com
 ```
 
-Copy an existing configuration, updating the address(as) of the server:
+Copy an existing configuration, updating the address(es) of the server:
 
 ```
 Get-RdpFile -Path $home/server01.rdp | New-RdpFile -Path $home/server02.rdp -full_address server02.jaapbrasser.com
